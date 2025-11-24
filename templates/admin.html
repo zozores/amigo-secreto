@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white shadow rounded-lg p-6">
+    <h2 class="text-2xl font-bold mb-4">Painel do Administrador</h2>
+
+    <!-- Add Participant Form -->
+    <form action="/participants" method="post" class="mb-8 flex gap-4">
+        <input type="text" name="name" placeholder="Nome do participante" required
+            class="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2">
+        <button type="submit"
+            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Adicionar
+        </button>
+    </form>
+
+    <!-- Participants List -->
+    <div class="mb-8">
+        <h3 class="text-lg font-medium text-gray-900 mb-2">Participantes ({{ participants|length }})</h3>
+        {% if participants %}
+        <ul class="divide-y divide-gray-200 border rounded-md">
+            {% for p in participants %}
+            <li class="p-4 flex justify-between items-center">
+                <span class="font-medium">{{ p.name }}</span>
+                {% if p.match_id %}
+                <div class="flex items-center gap-2">
+                    <span class="text-green-600 text-sm bg-green-100 px-2 py-1 rounded">Sorteado</span>
+                    <a href="/reveal/{{ p.token }}" target="_blank"
+                        class="text-indigo-600 hover:text-indigo-900 text-sm underline">Link Mágico</a>
+                </div>
+                {% else %}
+                <span class="text-gray-400 text-sm">Aguardando sorteio</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-gray-500 italic">Nenhum participante cadastrado.</p>
+        {% endif %}
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-4 border-t pt-6">
+        <form action="/draw" method="post">
+            <button type="submit" {% if participants|length < 2 %}disabled{% endif %}
+                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                Realizar Sorteio
+            </button>
+        </form>
+
+        <form action="/reset" method="post"
+            onsubmit="return confirm('Tem certeza? Isso apagará todos os participantes e sorteios.');">
+            <button type="submit"
+                class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Reiniciar Tudo
+            </button>
+        </form>
+
+        <a href="/logout"
+            class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Sair
+        </a>
+    </div>
+</div>
+{% endblock %}

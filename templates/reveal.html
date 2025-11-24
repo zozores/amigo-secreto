@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="p-6 text-center">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Olá, {{ participant.name }}!</h2>
+        <p class="text-gray-600 mb-8">Seu amigo secreto é...</p>
+
+        <div class="bg-indigo-50 rounded-xl p-8 mb-6 transform transition-all duration-500 hover:scale-105 cursor-pointer group"
+            onclick="this.classList.toggle('revealed')">
+            <div
+                class="blur-md group-hover:blur-0 transition-all duration-500 text-3xl font-bold text-indigo-700 select-none">
+                {{ match.name }}
+            </div>
+            <p class="text-xs text-indigo-400 mt-2">(Passe o mouse ou clique para revelar)</p>
+        </div>
+
+        <p class="text-sm text-gray-500">Guarde esse segredo! 🤫</p>
+    </div>
+</div>
+{% endblock %}
