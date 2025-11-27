@@ -1,6 +1,6 @@
 # 🎁 Amigo Secreto
 
-Aplicação web simples e moderna para realizar sorteios de Amigo Secreto, desenvolvida com Python (FastAPI) e Tailwind CSS.
+Super Ultra Mega simples aplicação web para realizar sorteios de Amigo Secreto, desenvolvida com Python (FastAPI) e Tailwind CSS, porque eu estava cansado de usar aplicações prontas da Internet que são cheias de anúncios e bugs.
 
 ## 🚀 Funcionalidades
 
